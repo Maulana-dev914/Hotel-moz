@@ -1,66 +1,175 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏨 Sistema de Gestão Hoteleira
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desenvolvido em **Laravel** para gerir as operações de um hotel — reservas, quartos, hóspedes e muito mais.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Requisitos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Antes de começar, certifica-te de que tens instalado:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [PHP](https://www.php.net/) >= 8.1
+- [Composer](https://getcomposer.org/)
+- [MySQL](https://www.mysql.com/) >= 5.7
+- Extensões PHP necessárias: `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Instalação e configuração
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 1. Clonar o repositório
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/teu-usuario/nome-do-repo.git
+cd nome-do-repo
+```
 
-## Laravel Sponsors
+### 2. Instalar as dependências PHP
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+composer install
+```
 
-### Premium Partners
+### 3. Configurar o ficheiro de ambiente
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Copia o ficheiro de exemplo e cria o teu `.env`:
 
-## Contributing
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Abre o `.env` e preenche as configurações da base de dados:
 
-## Code of Conduct
+```env
+APP_NAME="Sistema de Gestão Hoteleira"
+APP_URL=http://localhost:8000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_da_base_de_dados
+DB_USERNAME=root
+DB_PASSWORD=a_tua_password
+```
 
-## Security Vulnerabilities
+### 4. Gerar a chave da aplicação
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan key:generate
+```
 
-## License
+### 5. Criar a base de dados
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+No MySQL, cria uma base de dados com o mesmo nome que definiste no `.env`:
+
+```sql
+CREATE DATABASE nome_da_base_de_dados CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 6. Executar as migrações
+
+```bash
+php artisan migrate
+```
+
+Se o projecto tiver dados iniciais (seeders):
+
+```bash
+php artisan db:seed
+```
+
+Ou em conjunto:
+
+```bash
+php artisan migrate --seed
+```
+
+### 7. Iniciar o servidor de desenvolvimento
+
+```bash
+php artisan serve
+```
+
+A aplicação estará disponível em: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 🔐 Autenticação
+
+O sistema possui módulo de autenticação com login e registo de utilizadores.
+
+Após executar os seeders, podes entrar com as credenciais padrão (se configuradas):
+
+```
+Email:    admin@hotel.com
+Password: password
+```
+
+> ⚠️ Altera as credenciais padrão após o primeiro acesso.
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+| Tecnologia | Versão | Função |
+|---|---|---|
+| [Laravel](https://laravel.com) | 10.x / 11.x | Framework principal (PHP) |
+| [Composer](https://getcomposer.org) | 2.x | Gestão de dependências PHP |
+| [MySQL](https://www.mysql.com) | 5.7+ | Base de dados relacional |
+| [Blade](https://laravel.com/docs/blade) | — | Motor de templates |
+
+---
+
+## 📁 Estrutura do projecto
+
+```
+├── app/
+│   ├── Http/Controllers/   # Controladores da aplicação
+│   ├── Models/             # Modelos Eloquent
+│   └── ...
+├── database/
+│   ├── migrations/         # Migrações da base de dados
+│   └── seeders/            # Dados iniciais
+├── resources/
+│   ├── views/              # Templates Blade
+│   └── ...
+├── routes/
+│   └── web.php             # Rotas da aplicação
+└── .env.example            # Exemplo de configuração
+```
+
+---
+
+## ⚙️ Comandos úteis
+
+```bash
+# Limpar cache da aplicação
+php artisan cache:clear
+
+# Limpar cache de configuração
+php artisan config:clear
+
+# Listar todas as rotas
+php artisan route:list
+
+# Reverter e recriar todas as migrações
+php artisan migrate:fresh --seed
+```
+
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Para contribuir:
+
+1. Faz um fork do repositório
+2. Cria um branch para a tua funcionalidade (`git checkout -b feature/nova-funcionalidade`)
+3. Faz commit das alterações (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Faz push para o branch (`git push origin feature/nova-funcionalidade`)
+5. Abre um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projecto está licenciado sob a licença [MIT](https://opensource.org/licenses/MIT).
